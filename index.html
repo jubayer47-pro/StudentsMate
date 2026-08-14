@@ -8,6 +8,15 @@
 <meta name="theme-color" content="#4f46e5">  
 <meta name="description"  
       content="StudentMate - All in One Student Productivity App">  
+
+<!-- StudentMate app icons / PWA -->
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="StudentMate">
   
 <title>StudentMate</title>  
   
@@ -621,7 +630,10 @@ hr{
 <div class="app">  
   
 <header>  
- <div class="logo">Student<span>Mate</span></div>  
+ <div class="logo" style="display:flex;align-items:center;gap:9px;">
+  <img src="icons/icon-192.png" alt="StudentMate logo" style="width:38px;height:38px;object-fit:contain;border-radius:10px;">
+  <span>Student<span>Mate</span></span>
+</div>  
   
  <div class="header-actions">  
   <button class="icon-btn"  
