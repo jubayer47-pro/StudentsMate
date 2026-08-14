@@ -1,0 +1,4108 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport"  
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">  
+  
+<meta name="theme-color" content="#4f46e5">  
+<meta name="description"  
+      content="StudentMate - All in One Student Productivity App">  
+  
+<title>StudentMate</title>  
+  
+<style>  
+:root{  
+ --primary:#4f46e5;  
+ --primary2:#7c3aed;  
+ --bg:#f4f6fb;  
+ --card:#fff;  
+ --text:#151923;  
+ --muted:#737b8f;  
+ --border:#e3e6ee;  
+ --danger:#ef4444;  
+ --success:#16a34a;  
+ --warning:#f59e0b;  
+ --shadow:0 8px 28px rgba(0,0,0,.07);  
+}  
+  
+*{  
+ box-sizing:border-box;  
+ -webkit-tap-highlight-color:transparent;  
+}  
+  
+html{  
+ scroll-behavior:smooth;  
+}  
+  
+body{  
+ margin:0;  
+ background:var(--bg);  
+ color:var(--text);  
+ font-family:Arial,Helvetica,sans-serif;  
+ transition:.25s;  
+}  
+  
+body.dark{  
+ --bg:#0e1117;  
+ --card:#171b23;  
+ --text:#f5f7fb;  
+ --muted:#9aa3b5;  
+ --border:#2a303c;  
+ --shadow:0 8px 28px rgba(0,0,0,.35);  
+}  
+  
+button,input,textarea,select{  
+ font:inherit;  
+}  
+  
+button{  
+ cursor:pointer;  
+}  
+  
+.app{  
+ max-width:720px;  
+ margin:auto;  
+ min-height:100vh;  
+ padding-bottom:88px;  
+}  
+  
+header{  
+ position:sticky;  
+ top:0;  
+ z-index:100;  
+ height:66px;  
+ display:flex;  
+ align-items:center;  
+ justify-content:space-between;  
+ padding:0 17px;  
+ background:var(--card);  
+ border-bottom:1px solid var(--border);  
+}  
+  
+.logo{  
+ font-size:23px;  
+ font-weight:900;  
+}  
+  
+.logo span{  
+ color:var(--primary);  
+}  
+  
+.header-actions{  
+ display:flex;  
+ gap:7px;  
+}  
+  
+.icon-btn{  
+ width:40px;  
+ height:40px;  
+ border:0;  
+ border-radius:12px;  
+ background:var(--bg);  
+ color:var(--text);  
+}  
+  
+.page{  
+ display:none;  
+ padding:18px;  
+ animation:pageIn .18s ease;  
+}  
+  
+.page.active{  
+ display:block;  
+}  
+  
+@keyframes pageIn{  
+ from{  
+  opacity:0;  
+  transform:translateY(5px);  
+ }  
+ to{  
+  opacity:1;  
+  transform:none;  
+ }  
+}  
+  
+.hero{  
+ padding:23px;  
+ border-radius:23px;  
+ color:white;  
+ background:linear-gradient(  
+  135deg,  
+  var(--primary),  
+  var(--primary2)  
+ );  
+ box-shadow:var(--shadow);  
+ margin-bottom:17px;  
+}  
+  
+.hero h1{  
+ margin:0 0 6px;  
+ font-size:27px;  
+}  
+  
+.hero p{  
+ margin:0;  
+ opacity:.9;  
+}  
+  
+.card{  
+ background:var(--card);  
+ border:1px solid var(--border);  
+ border-radius:18px;  
+ padding:16px;  
+ margin-bottom:14px;  
+ box-shadow:var(--shadow);  
+}  
+  
+.grid{  
+ display:grid;  
+ grid-template-columns:repeat(2,1fr);  
+ gap:12px;  
+}  
+  
+.feature{  
+ min-height:125px;  
+ border:1px solid var(--border);  
+ text-align:left;  
+ color:var(--text);  
+ background:var(--card);  
+}  
+  
+.feature .big-icon{  
+ font-size:30px;  
+ margin-bottom:9px;  
+}  
+  
+.feature b{  
+ display:block;  
+ margin-bottom:5px;  
+}  
+  
+.muted{  
+ color:var(--muted);  
+ font-size:13px;  
+}  
+  
+h2{  
+ margin:3px 0 16px;  
+}  
+  
+h3{  
+ margin:3px 0 12px;  
+}  
+  
+input,textarea,select{  
+ width:100%;  
+ border:1px solid var(--border);  
+ background:var(--bg);  
+ color:var(--text);  
+ border-radius:12px;  
+ padding:12px;  
+ margin-bottom:10px;  
+ outline:none;  
+}  
+  
+input:focus,  
+textarea:focus,  
+select:focus{  
+ border-color:var(--primary);  
+}  
+  
+textarea{  
+ min-height:120px;  
+ resize:vertical;  
+}  
+  
+label{  
+ display:block;  
+ font-size:13px;  
+ color:var(--muted);  
+ margin:4px 0 6px;  
+}  
+  
+.btn{  
+ border:0;  
+ border-radius:12px;  
+ padding:11px 15px;  
+ background:var(--primary);  
+ color:white;  
+ font-weight:700;  
+}  
+  
+.btn.secondary{  
+ background:var(--bg);  
+ color:var(--text);  
+ border:1px solid var(--border);  
+}  
+  
+.btn.danger{  
+ background:var(--danger);  
+ color:white;  
+}  
+  
+.btn.success{  
+ background:var(--success);  
+ color:white;  
+}  
+  
+.btn.warning{  
+ background:var(--warning);  
+ color:white;  
+}  
+  
+.row{  
+ display:flex;  
+ gap:8px;  
+}  
+  
+.row>*{  
+ flex:1;  
+}  
+  
+.bottom-nav{  
+ position:fixed;  
+ z-index:200;  
+ bottom:0;  
+ left:50%;  
+ transform:translateX(-50%);  
+ width:min(720px,100%);  
+ background:var(--card);  
+ border-top:1px solid var(--border);  
+ display:grid;  
+ grid-template-columns:repeat(5,1fr);  
+ padding:7px 4px calc(7px + env(safe-area-inset-bottom));  
+}  
+  
+.nav-btn{  
+ border:0;  
+ background:transparent;  
+ color:var(--muted);  
+ font-size:10px;  
+ padding:5px 2px;  
+}  
+  
+.nav-btn.active{  
+ color:var(--primary);  
+ font-weight:800;  
+}  
+  
+.nav-icon{  
+ display:block;  
+ font-size:20px;  
+ margin-bottom:2px;  
+}  
+  
+.list-item{  
+ display:flex;  
+ justify-content:space-between;  
+ align-items:flex-start;  
+ gap:10px;  
+ padding:13px 0;  
+ border-bottom:1px solid var(--border);  
+}  
+  
+.list-item:last-child{  
+ border-bottom:0;  
+}  
+  
+.delete{  
+ border:0;  
+ background:none;  
+ color:var(--danger);  
+ font-size:18px;  
+ padding:4px;  
+}  
+  
+.edit{  
+ border:0;  
+ background:none;  
+ color:var(--primary);  
+ font-size:18px;  
+ padding:4px;  
+}  
+  
+.badge{  
+ display:inline-block;  
+ padding:4px 8px;  
+ border-radius:20px;  
+ background:var(--bg);  
+ color:var(--primary);  
+ font-size:11px;  
+ font-weight:bold;  
+ margin:2px;  
+}  
+  
+.priority-high{  
+ color:#dc2626;  
+}  
+  
+.priority-medium{  
+ color:#d97706;  
+}  
+  
+.priority-low{  
+ color:#16a34a;  
+}  
+  
+.done{  
+ text-decoration:line-through;  
+ opacity:.55;  
+}  
+  
+.empty{  
+ text-align:center;  
+ color:var(--muted);  
+ padding:25px 8px;  
+}  
+  
+.search{  
+ margin-bottom:12px;  
+}  
+  
+.stat-grid{  
+ display:grid;  
+ grid-template-columns:repeat(3,1fr);  
+ gap:9px;  
+}  
+  
+.stat{  
+ text-align:center;  
+ background:var(--bg);  
+ border-radius:14px;  
+ padding:13px 5px;  
+}  
+  
+.stat strong{  
+ display:block;  
+ font-size:23px;  
+ color:var(--primary);  
+}  
+  
+.modal{  
+ position:fixed;  
+ z-index:500;  
+ inset:0;  
+ display:none;  
+ align-items:flex-end;  
+ justify-content:center;  
+ background:rgba(0,0,0,.55);  
+}  
+  
+.modal.show{  
+ display:flex;  
+}  
+  
+.modal-box{  
+ width:min(720px,100%);  
+ max-height:90vh;  
+ overflow:auto;  
+ background:var(--card);  
+ border-radius:22px 22px 0 0;  
+ padding:20px;  
+ animation:sheet .2s ease;  
+}  
+  
+@keyframes sheet{  
+ from{  
+  transform:translateY(100%);  
+ }  
+ to{  
+  transform:none;  
+ }  
+}  
+  
+.modal-head{  
+ display:flex;  
+ justify-content:space-between;  
+ align-items:center;  
+ margin-bottom:15px;  
+}  
+  
+.close{  
+ border:0;  
+ background:var(--bg);  
+ color:var(--text);  
+ width:36px;  
+ height:36px;  
+ border-radius:10px;  
+}  
+  
+/* Calculator */  
+  
+.calc-display{  
+ background:#10131b;  
+ color:white;  
+ border-radius:18px;  
+ padding:18px;  
+ margin-bottom:11px;  
+ min-height:105px;  
+ text-align:right;  
+}  
+  
+.calc-expression{  
+ min-height:20px;  
+ color:#aab2c4;  
+ font-size:13px;  
+ overflow:hidden;  
+}  
+  
+.calc-result{  
+ font-size:34px;  
+ margin-top:7px;  
+ word-break:break-all;  
+}  
+  
+.calc-mode{  
+ display:flex;  
+ gap:8px;  
+ margin-bottom:10px;  
+}  
+  
+.calc-mode button{  
+ flex:1;  
+}  
+  
+.calc-grid{  
+ display:grid;  
+ grid-template-columns:repeat(4,1fr);  
+ gap:7px;  
+}  
+  
+.calc-grid.sci{  
+ grid-template-columns:repeat(5,1fr);  
+ margin-bottom:8px;  
+}  
+  
+.calc-btn{  
+ min-height:54px;  
+ border:1px solid var(--border);  
+ border-radius:12px;  
+ background:var(--card);  
+ color:var(--text);  
+ font-weight:bold;  
+}  
+  
+.calc-btn.operator{  
+ color:var(--primary);  
+}  
+  
+.calc-btn.equal{  
+ background:var(--primary);  
+ color:white;  
+}  
+  
+.calc-btn.danger{  
+ color:var(--danger);  
+}  
+  
+/* Timer */  
+  
+.timer{  
+ font-size:60px;  
+ font-weight:900;  
+ text-align:center;  
+ margin:25px 0;  
+ letter-spacing:2px;  
+}  
+  
+.progress{  
+ height:9px;  
+ background:var(--bg);  
+ border-radius:20px;  
+ overflow:hidden;  
+ margin-bottom:17px;  
+}  
+  
+.progress-bar{  
+ height:100%;  
+ width:0%;  
+ background:var(--primary);  
+ transition:.3s;  
+}  
+  
+/* Colors */  
+  
+.color-grid{  
+ display:grid;  
+ grid-template-columns:repeat(5,1fr);  
+ gap:11px;  
+}  
+  
+.color{  
+ height:38px;  
+ border-radius:50%;  
+ border:3px solid var(--card);  
+ outline:1px solid var(--border);  
+}  
+  
+/* Permission */  
+  
+.permission-item{  
+ display:flex;  
+ align-items:center;  
+ gap:12px;  
+ padding:13px 0;  
+ border-bottom:1px solid var(--border);  
+}  
+  
+.permission-item:last-child{  
+ border-bottom:0;  
+}  
+  
+.permission-icon{  
+ width:42px;  
+ height:42px;  
+ border-radius:12px;  
+ display:grid;  
+ place-items:center;  
+ background:var(--bg);  
+ font-size:22px;  
+}  
+  
+.permission-status{  
+ margin-left:auto;  
+ font-size:12px;  
+ color:var(--muted);  
+}  
+  
+/* Note */  
+  
+.note-preview{  
+ white-space:pre-wrap;  
+ line-height:1.5;  
+}  
+  
+/* Toast */  
+  
+.toast{  
+ position:fixed;  
+ z-index:1000;  
+ left:50%;  
+ bottom:90px;  
+ transform:translateX(-50%) translateY(20px);  
+ background:#111827;  
+ color:white;  
+ padding:12px 17px;  
+ border-radius:12px;  
+ opacity:0;  
+ pointer-events:none;  
+ transition:.25s;  
+ max-width:90%;  
+ text-align:center;  
+}  
+  
+.toast.show{  
+ opacity:1;  
+ transform:translateX(-50%) translateY(0);  
+}  
+  
+/* Small */  
+  
+.small{  
+ font-size:12px;  
+}  
+  
+hr{  
+ border:0;  
+ border-top:1px solid var(--border);  
+ margin:16px 0;  
+}  
+  
+.center{  
+ text-align:center;  
+}  
+</style>  
+</head>  
+  
+<body>  
+  
+<div class="app">  
+  
+<header>  
+ <div class="logo">Student<span>Mate</span></div>  
+  
+ <div class="header-actions">  
+  <button class="icon-btn"  
+          onclick="openPage('search')">🔎</button>  
+  
+  <button class="icon-btn"  
+          onclick="openPage('settings')">⚙️</button>  
+ </div>  
+</header>  
+  
+  
+<!-- HOME -->  
+<section id="home" class="page active">  
+  
+ <div class="hero">  
+  <h1>Hello, Student 👋</h1>  
+  <p id="homeDate">Your personal study companion.</p>  
+ </div>  
+  
+ <div class="card">  
+  <div class="stat-grid">  
+   <div class="stat">  
+    <strong id="homeTasks">0</strong>  
+    <span class="muted">Tasks</span>  
+   </div>  
+  
+   <div class="stat">  
+    <strong id="homeNotes">0</strong>  
+    <span class="muted">Notes</span>  
+   </div>  
+  
+   <div class="stat">  
+    <strong id="homeClasses">0</strong>  
+    <span class="muted">Classes</span>  
+   </div>  
+  </div>  
+ </div>  
+  
+ <div class="grid">  
+  
+  <button class="card feature"  
+          onclick="openPage('calculator')">  
+   <div class="big-icon">🧮</div>  
+   <b>Calculator</b>  
+   <span class="muted">Basic & Scientific</span>  
+  </button>  
+  
+  <button class="card feature"  
+          onclick="openPage('notes')">  
+   <div class="big-icon">📚</div>  
+   <b>Smart Notes</b>  
+   <span class="muted">Organize your study</span>  
+  </button>  
+  
+  <button class="card feature"  
+          onclick="openPage('tasks')">  
+   <div class="big-icon">✅</div>  
+   <b>Task Manager</b>  
+   <span class="muted">Reminder & schedule</span>  
+  </button>  
+  
+  <button class="card feature"  
+          onclick="openPage('timer')">  
+   <div class="big-icon">⏱️</div>  
+   <b>Study Timer</b>  
+   <span class="muted">Pomodoro & focus</span>  
+  </button>  
+  
+  <button class="card feature"  
+          onclick="openPage('gpa')">  
+   <div class="big-icon">🎓</div>  
+   <b>GPA / CGPA</b>  
+   <span class="muted">Calculate grades</span>  
+  </button>  
+  
+  <button class="card feature"  
+          onclick="openPage('marks')">  
+   <div class="big-icon">📊</div>  
+   <b>Marks</b>  
+   <span class="muted">Percentage & grade</span>  
+  </button>  
+  
+  <button class="card feature"  
+          onclick="openPage('routine')">  
+   <div class="big-icon">📅</div>  
+   <b>Routine</b>  
+   <span class="muted">Class schedule</span>  
+  </button>  
+  
+  <button class="card feature"  
+          onclick="openPage('formulas')">  
+   <div class="big-icon">📌</div>  
+   <b>Formula Book</b>  
+   <span class="muted">Quick formulas</span>  
+  </button>  
+  
+ </div>  
+  
+ <div class="card">  
+  <h3>⚡ Quick Actions</h3>  
+  
+  <div class="row">  
+   <button class="btn"  
+           onclick="openTaskModal()">  
+    + Task  
+   </button>  
+  
+   <button class="btn secondary"  
+           onclick="openNoteModal()">  
+    + Note  
+   </button>  
+  </div>  
+ </div>  
+  
+</section>  
+  
+  
+<!-- SEARCH -->  
+<section id="search" class="page">  
+  
+ <h2>🔎 Search</h2>  
+  
+ <input class="search"  
+        id="globalSearch"  
+        placeholder="Search notes, tasks & routine..."  
+        oninput="globalSearch()">  
+  
+ <div id="searchResults"></div>  
+  
+</section>  
+  
+  
+<!-- NOTES -->  
+<section id="notes" class="page">  
+  
+ <h2>📚 Smart Notes</h2>  
+  
+ <div class="row">  
+  <input id="noteSearch"  
+         placeholder="Search notes..."  
+         oninput="renderNotes()">  
+  
+  <button class="btn"  
+          style="flex:0 0 auto"  
+          onclick="openNoteModal()">  
+   + Note  
+  </button>  
+ </div>  
+  
+ <div id="notesList"></div>  
+  
+</section>  
+  
+  
+<!-- TASKS -->  
+<section id="tasks" class="page">  
+  
+ <h2>✅ Smart Task Manager</h2>  
+  
+ <div class="row">  
+  <input id="taskSearch"  
+         placeholder="Search tasks..."  
+         oninput="renderTasks()">  
+  
+  <button class="btn"  
+          style="flex:0 0 auto"  
+          onclick="openTaskModal()">  
+   + Task  
+  </button>  
+ </div>  
+  
+ <div class="card">  
+  <div class="row">  
+  
+   <select id="taskFilter"  
+           onchange="renderTasks()">  
+    <option value="all">All Tasks</option>  
+    <option value="pending">Pending</option>  
+    <option value="completed">Completed</option>  
+   </select>  
+  
+   <select id="priorityFilter"  
+           onchange="renderTasks()">  
+    <option value="all">All Priority</option>  
+    <option value="high">High</option>  
+    <option value="medium">Medium</option>  
+    <option value="low">Low</option>  
+   </select>  
+  
+  </div>  
+ </div>  
+  
+ <div id="taskList"></div>  
+  
+</section>  
+  
+  
+<!-- CALCULATOR -->  
+<section id="calculator" class="page">  
+  
+ <h2>🧮 Calculator</h2>  
+  
+ <div class="calc-mode">  
+  <button id="basicMode"  
+          class="btn"  
+          onclick="setCalcMode('basic')">  
+   Basic  
+  </button>  
+  
+  <button id="scientificMode"  
+          class="btn secondary"  
+          onclick="setCalcMode('scientific')">  
+   Scientific  
+  </button>  
+ </div>  
+  
+ <div class="calc-display">  
+  <div id="calcExpression"  
+       class="calc-expression"></div>  
+  
+  <div id="calcResult"  
+       class="calc-result">0</div>  
+ </div>  
+  
+ <div id="scientificKeys"  
+      style="display:none">  
+  
+  <div class="calc-grid sci">  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('sin(')">  
+    sin  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('cos(')">  
+    cos  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('tan(')">  
+    tan  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('sqrt(')">  
+    √  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('log(')">  
+    log  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('ln(')">  
+    ln  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('π')">  
+    π  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('e')">  
+    e  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('^')">  
+    xʸ  
+   </button>  
+  
+   <button class="calc-btn"  
+           onclick="calcInput('!')">  
+    x!  
+   </button>  
+  
+  </div>  
+ </div>  
+  
+ <div class="calc-grid">  
+  
+  <button class="calc-btn danger"  
+          onclick="calcClear()">AC</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcDelete()">⌫</button>  
+  
+  <button class="calc-btn operator"  
+          onclick="calcInput('%')">%</button>  
+  
+  <button class="calc-btn operator"  
+          onclick="calcInput('/')">÷</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('7')">7</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('8')">8</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('9')">9</button>  
+  
+  <button class="calc-btn operator"  
+          onclick="calcInput('*')">×</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('4')">4</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('5')">5</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('6')">6</button>  
+  
+  <button class="calc-btn operator"  
+          onclick="calcInput('-')">−</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('1')">1</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('2')">2</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('3')">3</button>  
+  
+  <button class="calc-btn operator"  
+          onclick="calcInput('+')">+</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('(')">(</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('0')">0</button>  
+  
+  <button class="calc-btn"  
+          onclick="calcInput('.')">.</button>  
+  
+  <button class="calc-btn equal"  
+          onclick="calcEqual()">=</button>  
+  
+ </div>  
+  
+ <div class="card" style="margin-top:15px">  
+  <div class="row">  
+   <h3 style="flex:1">Calculation History</h3>  
+   <button class="btn danger"  
+           onclick="clearCalcHistory()">  
+    Clear  
+   </button>  
+  </div>  
+  
+  <div id="calcHistory"></div>  
+ </div>  
+  
+</section>  
+  
+  
+<!-- TIMER -->  
+<section id="timer" class="page">  
+  
+ <h2>⏱️ Study Timer</h2>  
+  
+ <div class="card center">  
+  
+  <select id="timerPreset"  
+          onchange="changeTimerPreset()">  
+  
+   <option value="25">25 min — Pomodoro</option>  
+   <option value="45">45 min — Deep Study</option>  
+   <option value="60">60 min — Long Study</option>  
+   <option value="5">5 min — Quick Break</option>  
+   <option value="custom">Custom</option>  
+  
+  </select>  
+  
+  <div id="customTimerBox"  
+       style="display:none">  
+  
+   <input id="customMinutes"  
+          type="number"  
+          min="1"  
+          max="240"  
+          placeholder="Minutes">  
+  
+   <button class="btn"  
+           onclick="applyCustomTimer()">  
+    Set Timer  
+   </button>  
+  
+  </div>  
+  
+  <div id="timerDisplay"  
+       class="timer">25:00</div>  
+  
+  <div class="progress">  
+   <div id="timerProgress"  
+        class="progress-bar"></div>  
+  </div>  
+  
+  <div class="row">  
+  
+   <button class="btn"  
+           onclick="startTimer()">Start</button>  
+  
+   <button class="btn secondary"  
+           onclick="pauseTimer()">Pause</button>  
+  
+   <button class="btn danger"  
+           onclick="resetTimer()">Reset</button>  
+  
+  </div>  
+  
+  <p class="muted">  
+   Completed sessions:  
+   <b id="sessionCount">0</b>  
+  </p>  
+  
+ </div>  
+  
+</section>  
+  
+  
+<!-- GPA -->  
+<section id="gpa" class="page">  
+  
+ <h2>🎓 GPA Calculator</h2>  
+  
+ <div class="card">  
+  
+  <p class="muted">  
+   Add subject name, credit and grade point.  
+  </p>  
+  
+  <div id="gpaRows"></div>  
+  
+  <button class="btn secondary"  
+          onclick="addGPARow()">  
+   + Add Subject  
+  </button>  
+  
+  <button class="btn"  
+          onclick="calculateGPA()">  
+   Calculate GPA  
+  </button>  
+  
+  <div class="card center"  
+       style="margin-top:15px">  
+  
+   <span class="muted">Your GPA</span>  
+  
+   <div id="gpaResult"  
+        style="font-size:42px;  
+               font-weight:900;  
+               color:var(--primary)">  
+    0.00  
+   </div>  
+  
+  </div>  
+  
+ </div>  
+  
+</section>  
+  
+  
+<!-- MARKS -->  
+<section id="marks" class="page">  
+  
+ <h2>📊 Marks Calculator</h2>  
+  
+ <div class="card">  
+  
+  <label>Total Marks</label>  
+  <input id="totalMarks"  
+         type="number"  
+         placeholder="Example: 100">  
+  
+  <label>Obtained Marks</label>  
+  <input id="obtainedMarks"  
+         type="number"  
+         placeholder="Example: 78">  
+  
+  <button class="btn"  
+          onclick="calculateMarks()">  
+   Calculate  
+  </button>  
+  
+  <div class="card center"  
+       style="margin-top:15px">  
+  
+   <span class="muted">Percentage</span>  
+  
+   <div id="percentageResult"  
+        style="font-size:38px;  
+               font-weight:900;  
+               color:var(--primary)">  
+    0%  
+   </div>  
+  
+   <div id="marksGrade"  
+        class="muted"></div>  
+  
+  </div>  
+  
+ </div>  
+  
+</section>  
+  
+  
+<!-- ROUTINE -->  
+<section id="routine" class="page">  
+  
+ <h2>📅 Smart Routine</h2>  
+  
+ <div class="card">  
+  
+  <select id="routineDay">  
+   <option>Saturday</option>  
+   <option>Sunday</option>  
+   <option>Monday</option>  
+   <option>Tuesday</option>  
+   <option>Wednesday</option>  
+   <option>Thursday</option>  
+   <option>Friday</option>  
+  </select>  
+  
+  <input id="routineTime"  
+         type="time">  
+  
+  <input id="routineSubject"  
+         placeholder="Subject">  
+  
+  <input id="routineTeacher"  
+         placeholder="Teacher">  
+  
+  <input id="routineRoom"  
+         placeholder="Room">  
+  
+  <button class="btn"  
+          onclick="addRoutine()">  
+   Add Class  
+  </button>  
+  
+ </div>  
+  
+ <div id="routineList"></div>  
+  
+</section>  
+  
+  
+<!-- FORMULAS -->  
+<section id="formulas" class="page">  
+  
+ <h2>📌 Formula Book</h2>  
+  
+ <div class="card">  
+  
+  <div class="formula">  
+   <span class="badge">Percentage</span>  
+   <p>  
+    Percentage =  
+    (Obtained ÷ Total) × 100  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">Simple Interest</span>  
+   <p>  
+    SI = (P × R × T) ÷ 100  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">Compound Amount</span>  
+   <p>  
+    A = P(1 + R/100)<sup>T</sup>  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">Profit</span>  
+   <p>  
+    Profit = SP − CP  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">Loss</span>  
+   <p>  
+    Loss = CP − SP  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">Average</span>  
+   <p>  
+    Average = Sum ÷ Number of Values  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">AP nth term</span>  
+   <p>  
+    aₙ = a + (n − 1)d  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">AP Sum</span>  
+   <p>  
+    Sₙ = n/2 [2a + (n − 1)d]  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">GP nth term</span>  
+   <p>  
+    aₙ = arⁿ⁻¹  
+   </p>  
+  </div>  
+  
+  <div class="formula">  
+   <span class="badge">Business Math</span>  
+   <p>  
+    Present Value, Future Value, Discount,  
+    Markup and Margin calculations can be  
+    derived from their standard formulas.  
+   </p>  
+  </div>  
+  
+ </div>  
+  
+</section>  
+  
+  
+<!-- SETTINGS -->  
+<section id="settings" class="page">  
+  
+ <h2>⚙️ Settings</h2>  
+  
+ <div class="card">  
+  
+  <h3>Appearance</h3>  
+  
+  <div class="row">  
+   <button class="btn"  
+           onclick="setTheme('light')">  
+    ☀️ Light  
+   </button>  
+  
+   <button class="btn secondary"  
+           onclick="setTheme('dark')">  
+    🌙 Dark  
+   </button>  
+  </div>  
+  
+ </div>  
+  
+  
+ <div class="card">  
+  
+  <h3>🎨 Theme Color</h3>  
+  
+  <div class="color-grid">  
+  
+   <button class="color"  
+           style="background:#4f46e5"  
+           onclick="setColor('#4f46e5')"></button>  
+  
+   <button class="color"  
+           style="background:#2563eb"  
+           onclick="setColor('#2563eb')"></button>  
+  
+   <button class="color"  
+           style="background:#0891b2"  
+           onclick="setColor('#0891b2')"></button>  
+  
+   <button class="color"  
+           style="background:#16a34a"  
+           onclick="setColor('#16a34a')"></button>  
+  
+   <button class="color"  
+           style="background:#ea580c"  
+           onclick="setColor('#ea580c')"></button>  
+  
+   <button class="color"  
+           style="background:#dc2626"  
+           onclick="setColor('#dc2626')"></button>  
+  
+   <button class="color"  
+           style="background:#db2777"  
+           onclick="setColor('#db2777')"></button>  
+  
+   <button class="color"  
+           style="background:#9333ea"  
+           onclick="setColor('#9333ea')"></button>  
+  
+   <button class="color"  
+           style="background:#0f766e"  
+           onclick="setColor('#0f766e')"></button>  
+  
+   <button class="color"  
+           style="background:#475569"  
+           onclick="setColor('#475569')"></button>  
+  
+  </div>  
+  
+ </div>  
+  
+  
+ <div class="card">  
+  
+  <h3>🔐 Permissions</h3>  
+  
+  <p class="muted">  
+   StudentMate only asks for permissions when  
+   a feature needs them.  
+  </p>  
+  
+  <button class="btn"  
+          onclick="openPage('permissions')">  
+   Manage Permissions  
+  </button>  
+  
+ </div>  
+  
+  
+ <div class="card">  
+  
+  <h3>💾 Data Management</h3>  
+  
+  <p class="muted">  
+   Your notes, tasks, routine and preferences  
+   are stored locally on this device.  
+  </p>  
+  
+  <button class="btn danger"  
+          onclick="clearAllData()">  
+   Clear All App Data  
+  </button>  
+  
+ </div>  
+  
+  
+ <div class="card">  
+  
+  <h3>ℹ️ About StudentMate</h3>  
+  
+  <p>  
+   <b>StudentMate</b> is an all-in-one student  
+   productivity application designed to keep  
+   common academic tools in one place.  
+  </p>  
+  
+  <p class="muted">  
+   It combines notes, tasks, reminders, routine,  
+   calculator, GPA tools, marks calculator,  
+   study timer and formula reference.  
+  </p>  
+  
+  <p class="muted">  
+   The application is designed with an  
+   offline-first approach. Most personal  
+   information created inside the app remains  
+   in the browser/device storage.  
+  </p>  
+  
+  <p class="muted">  
+   Version: 2.0.0  
+  </p>  
+  
+  <p class="muted">  
+   Developer: StudentMate Project  
+  </p>  
+  
+ </div>  
+  
+  
+ <div class="card">  
+  
+  <h3>🔒 Privacy Policy</h3>  
+  
+  <p>  
+   StudentMate respects your privacy.  
+   The application is designed to minimize  
+   unnecessary collection of personal information.  
+  </p>  
+  
+  <h3>1. Information Storage</h3>  
+  
+  <p class="muted">  
+   Notes, tasks, routine information,  
+   calculator history and application  
+   preferences may be stored locally on your  
+   device using browser local storage.  
+  </p>  
+  
+  <h3>2. No Account Required</h3>  
+  
+  <p class="muted">  
+   The basic application does not require a  
+   username, password or account to use its  
+   offline features.  
+  </p>  
+  
+  <h3>3. Permissions</h3>  
+  
+  <p class="muted">  
+   Optional permissions such as notifications,  
+   camera, microphone or location are requested  
+   only when a corresponding feature needs them.  
+   Permission availability depends on the browser  
+   or Android WebView environment.  
+  </p>  
+  
+  <h3>4. Notifications</h3>  
+  
+  <p class="muted">  
+   If notification permission is granted,  
+   StudentMate may use browser notifications for  
+   supported reminder features. Notifications are  
+   not guaranteed when the application is fully  
+   terminated unless the Android wrapper provides  
+   a native background notification service.  
+  </p>  
+  
+  <h3>5. Data Sharing</h3>  
+  
+  <p class="muted">  
+   The basic offline features do not intentionally  
+   upload your notes, tasks or routine to a  
+   StudentMate server.  
+  </p>  
+  
+  <h3>6. Third-Party Services</h3>  
+  
+  <p class="muted">  
+   This single-file version does not require  
+   external analytics or advertising services  
+   for its core features.  
+  </p>  
+  
+  <h3>7. Data Deletion</h3>  
+  
+  <p class="muted">  
+   You can remove locally stored application data  
+   using the Clear All App Data option. Clearing  
+   browser/WebView data can also remove locally  
+   stored information.  
+  </p>  
+  
+  <h3>8. Student Privacy</h3>  
+  
+  <p class="muted">  
+   Users should avoid entering highly sensitive  
+   information, passwords, financial credentials  
+   or other confidential information into ordinary  
+   notes.  
+  </p>  
+  
+  <h3>9. Policy Changes</h3>  
+  
+  <p class="muted">  
+   This privacy information may be updated when  
+   application functionality changes.  
+  </p>  
+  
+  <p class="small muted">  
+   Last updated: August 2026  
+  </p>  
+  
+ </div>  
+  
+</section>  
+  
+  
+<!-- PERMISSIONS -->  
+<section id="permissions" class="page">  
+  
+ <h2>🔐 Permissions</h2>  
+  
+ <div class="card">  
+  
+  <p class="muted">  
+   You are in control. StudentMate does not need  
+   every permission to run.  
+  </p>  
+  
+  <div class="permission-item">  
+  
+   <div class="permission-icon">🔔</div>  
+  
+   <div style="flex:1">  
+    <b>Notifications</b>  
+    <div class="muted">  
+     Used for supported task reminders.  
+    </div>  
+   </div>  
+  
+   <button class="btn"  
+           onclick="requestNotification()">  
+    Allow  
+   </button>  
+  
+  </div>  
+  
+  
+  <div class="permission-item">  
+  
+   <div class="permission-icon">📍</div>  
+  
+   <div style="flex:1">  
+    <b>Location</b>  
+    <div class="muted">  
+     Optional. Only requested by a feature  
+     that needs location.  
+    </div>  
+   </div>  
+  
+   <button class="btn secondary"  
+           onclick="requestLocation()">  
+    Allow  
+   </button>  
+  
+  </div>  
+  
+  
+  <div class="permission-item">  
+  
+   <div class="permission-icon">📷</div>  
+  
+   <div style="flex:1">  
+    <b>Camera</b>  
+    <div class="muted">  
+     Optional camera access.  
+    </div>  
+   </div>  
+  
+   <button class="btn secondary"  
+           onclick="requestCamera()">  
+    Allow  
+   </button>  
+  
+  </div>  
+  
+  
+  <div class="permission-item">  
+  
+   <div class="permission-icon">🎙️</div>  
+  
+   <div style="flex:1">  
+    <b>Microphone</b>  
+    <div class="muted">  
+     Optional microphone access.  
+    </div>  
+   </div>  
+  
+   <button class="btn secondary"  
+           onclick="requestMicrophone()">  
+    Allow  
+   </button>  
+  
+  </div>  
+  
+ </div>  
+  
+ <div class="card">  
+  
+  <h3>Permission Status</h3>  
+  
+  <div id="permissionStatus"  
+       class="muted">  
+   Checking...  
+  </div>  
+  
+ </div>  
+  
+</section>  
+  
+  
+<!-- BOTTOM NAV -->  
+<nav class="bottom-nav">  
+  
+ <button class="nav-btn active"  
+         data-page="home"  
+         onclick="openPage('home')">  
+  <span class="nav-icon">🏠</span>  
+  Home  
+ </button>  
+  
+ <button class="nav-btn"  
+         data-page="calculator"  
+         onclick="openPage('calculator')">  
+  <span class="nav-icon">🧮</span>  
+  Calc  
+ </button>  
+  
+ <button class="nav-btn"  
+         data-page="notes"  
+         onclick="openPage('notes')">  
+  <span class="nav-icon">📚</span>  
+  Notes  
+ </button>  
+  
+ <button class="nav-btn"  
+         data-page="tasks"  
+         onclick="openPage('tasks')">  
+  <span class="nav-icon">✅</span>  
+  Tasks  
+ </button>  
+  
+ <button class="nav-btn"  
+         data-page="settings"  
+         onclick="openPage('settings')">  
+  <span class="nav-icon">⚙️</span>  
+  Settings  
+ </button>  
+  
+</nav>  
+  
+</div>  
+  
+  
+<!-- NOTE MODAL -->  
+<div id="noteModal"  
+     class="modal"  
+     onclick="closeModalOutside(event,'noteModal')">  
+  
+ <div class="modal-box">  
+  
+  <div class="modal-head">  
+   <h2 id="noteModalTitle">📚 New Note</h2>  
+  
+   <button class="close"  
+           onclick="closeModal('noteModal')">  
+    ✕  
+   </button>  
+  </div>  
+  
+  <input type="hidden"  
+         id="editingNoteId">  
+  
+  <label>Title</label>  
+  <input id="noteTitle"  
+         placeholder="Example: Accounting Chapter 1">  
+  
+  <label>Subject / Category</label>  
+  <input id="noteCategory"  
+         placeholder="Example: Accounting">  
+  
+  <label>Note</label>  
+  <textarea id="noteText"  
+            placeholder="Write your study note..."></textarea>  
+  
+  <label>Type</label>  
+  <select id="noteType">  
+   <option value="note">Normal Note</option>  
+   <option value="important">Important</option>  
+   <option value="question">Question</option>  
+   <option value="formula">Formula</option>  
+  </select>  
+  
+  <label>  
+   <input type="checkbox"  
+          id="notePinned"  
+          style="width:auto">  
+   Pin this note  
+  </label>  
+  
+  <div class="row">  
+   <button class="btn secondary"  
+           onclick="closeModal('noteModal')">  
+    Cancel  
+   </button>  
+  
+   <button class="btn"  
+           onclick="saveNote()">  
+    Save Note  
+   </button>  
+  </div>  
+  
+ </div>  
+</div>  
+  
+  
+<!-- TASK MODAL -->  
+<div id="taskModal"  
+     class="modal"  
+     onclick="closeModalOutside(event,'taskModal')">  
+  
+ <div class="modal-box">  
+  
+  <div class="modal-head">  
+  
+   <h2 id="taskModalTitle">  
+    ✅ New Task  
+   </h2>  
+  
+   <button class="close"  
+           onclick="closeModal('taskModal')">  
+    ✕  
+   </button>  
+  
+  </div>  
+  
+  <input type="hidden"  
+         id="editingTaskId">  
+  
+  <label>Task Title</label>  
+  
+  <input id="taskTitle"  
+         placeholder="Example: Finish accounting assignment">  
+  
+  <label>Description</label>  
+  
+  <textarea id="taskDescription"  
+            placeholder="Additional details..."></textarea>  
+  
+  <label>Date</label>  
+  
+  <input id="taskDate"  
+         type="date">  
+  
+  <label>Time</label>  
+  
+  <input id="taskTime"  
+         type="time">  
+  
+  <label>Priority</label>  
+  
+  <select id="taskPriority">  
+   <option value="low">Low</option>  
+   <option value="medium" selected>Medium</option>  
+   <option value="high">High</option>  
+  </select>  
+  
+  <label>Category</label>  
+  
+  <select id="taskCategory">  
+   <option>Study</option>  
+   <option>Assignment</option>  
+   <option>Exam</option>  
+   <option>Personal</option>  
+   <option>Other</option>  
+  </select>  
+  
+  <label>Repeat Schedule</label>  
+  
+  <select id="taskRepeat">  
+   <option value="none">Does not repeat</option>  
+   <option value="daily">Daily</option>  
+   <option value="weekly">Weekly</option>  
+   <option value="monthly">Monthly</option>  
+  </select>  
+  
+  <label>  
+   <input id="taskReminder"  
+          type="checkbox"  
+          style="width:auto">  
+   Enable reminder  
+  </label>  
+  
+  <div class="row">  
+  
+   <button class="btn secondary"  
+           onclick="closeModal('taskModal')">  
+    Cancel  
+   </button>  
+  
+   <button class="btn"  
+           onclick="saveTask()">  
+    Save Task  
+   </button>  
+  
+  </div>  
+  
+ </div>  
+</div>  
+  
+  
+<div id="toast"  
+     class="toast"></div>  
+  
+  
+<script>  
+  
+/* =========================================================  
+   STORAGE  
+========================================================= */  
+  
+const STORAGE={  
+ notes:'studentmate_v2_notes',  
+ tasks:'studentmate_v2_tasks',  
+ routine:'studentmate_v2_routine',  
+ history:'studentmate_v2_calc_history',  
+ theme:'studentmate_v2_theme',  
+ color:'studentmate_v2_color',  
+ sessions:'studentmate_v2_sessions'  
+};  
+  
+let notes=load(STORAGE.notes,[]);  
+let tasks=load(STORAGE.tasks,[]);  
+let routine=load(STORAGE.routine,[]);  
+let calcHistory=load(STORAGE.history,[]);  
+  
+function load(key,fallback){  
+  
+ try{  
+  return JSON.parse(  
+   localStorage.getItem(key)  
+  ) ?? fallback;  
+ }catch(e){  
+  return fallback;  
+ }  
+}  
+  
+function save(key,value){  
+ localStorage.setItem(  
+  key,  
+  JSON.stringify(value)  
+ );  
+}  
+  
+  
+/* =========================================================  
+   PAGE / BACK SYSTEM  
+========================================================= */  
+  
+let currentPage='home';  
+let pageStack=['home'];  
+let ignorePop=false;  
+  
+function openPage(id,addHistory=true){  
+  
+ const page=document.getElementById(id);  
+  
+ if(!page) return;  
+  
+ document.querySelectorAll('.page')  
+  .forEach(p=>p.classList.remove('active'));  
+  
+ page.classList.add('active');  
+  
+ document.querySelectorAll('.nav-btn')  
+  .forEach(btn=>{  
+   btn.classList.toggle(  
+    'active',  
+    btn.dataset.page===id  
+   );  
+  });  
+  
+ if(addHistory){  
+  
+  if(currentPage!==id){  
+  
+   pageStack.push(id);  
+  
+   if(pageStack.length>30){  
+    pageStack.shift();  
+   }  
+  
+   history.pushState(  
+    {studentMatePage:id},  
+    '',  
+    '#'+id  
+   );  
+  }  
+ }  
+  
+ currentPage=id;  
+  
+ window.scrollTo(0,0);  
+  
+ refreshPage(id);  
+}  
+  
+window.addEventListener(  
+ 'popstate',  
+ function(){  
+  
+  if(pageStack.length>1){  
+  
+   pageStack.pop();  
+  
+   const previous=  
+    pageStack[pageStack.length-1];  
+  
+   openPage(previous,false);  
+  
+  }else{  
+  
+   openPage('home',false);  
+  }  
+ }  
+);  
+  
+function refreshPage(id){  
+  
+ if(id==='notes') renderNotes();  
+  
+ if(id==='tasks') renderTasks();  
+  
+ if(id==='routine') renderRoutine();  
+  
+ if(id==='search') globalSearch();  
+  
+ if(id==='permissions') updatePermissionStatus();  
+  
+ updateStats();  
+}  
+  
+  
+/* Android / browser back */  
+  
+window.addEventListener(  
+ 'keydown',  
+ function(e){  
+  
+  if(e.key==='Escape'){  
+  
+   const modals=  
+    document.querySelectorAll('.modal.show');  
+  
+   if(modals.length){  
+  
+    closeModal(modals[modals.length-1].id);  
+    return;  
+   }  
+  
+   if(currentPage!=='home'){  
+    goBack();  
+   }  
+  }  
+ }  
+);  
+  
+function goBack(){  
+  
+ const modals=  
+  document.querySelectorAll('.modal.show');  
+  
+ if(modals.length){  
+  
+  closeModal(modals[modals.length-1].id);  
+  return;  
+ }  
+  
+ if(pageStack.length>1){  
+  
+  history.back();  
+  
+ }else{  
+  
+  const leave=  
+   confirm(  
+    'Exit StudentMate?'  
+   );  
+  
+  if(leave){  
+   try{  
+    window.close();  
+   }catch(e){}  
+  }  
+ }  
+}  
+  
+  
+/* =========================================================  
+   MODALS  
+========================================================= */  
+  
+function openModal(id){  
+ document.getElementById(id)  
+  .classList.add('show');  
+}  
+  
+function closeModal(id){  
+ document.getElementById(id)  
+  .classList.remove('show');  
+}  
+  
+function closeModalOutside(e,id){  
+  
+ if(e.target.id===id){  
+  closeModal(id);  
+ }  
+}  
+  
+  
+/* =========================================================  
+   TOAST  
+========================================================= */  
+  
+let toastTimer;  
+  
+function toast(message){  
+  
+ const el=  
+  document.getElementById('toast');  
+  
+ el.textContent=message;  
+  
+ el.classList.add('show');  
+  
+ clearTimeout(toastTimer);  
+  
+ toastTimer=  
+  setTimeout(()=>{  
+   el.classList.remove('show');  
+  },2500);  
+}  
+  
+  
+/* =========================================================  
+   DATE  
+========================================================= */  
+  
+function localDateString(){  
+  
+ const d=new Date();  
+  
+ const y=d.getFullYear();  
+  
+ const m=  
+  String(d.getMonth()+1).padStart(2,'0');  
+  
+ const day=  
+  String(d.getDate()).padStart(2,'0');  
+  
+ return `${y}-${m}-${day}`;  
+}  
+  
+document.getElementById(  
+ 'homeDate'  
+).textContent=  
+ new Date().toLocaleDateString(  
+  undefined,  
+  {  
+   weekday:'long',  
+   year:'numeric',  
+   month:'long',  
+   day:'numeric'  
+  }  
+);  
+  
+  
+/* =========================================================  
+   NOTES  
+========================================================= */  
+  
+function openNoteModal(note=null){  
+  
+ document.getElementById(  
+  'editingNoteId'  
+ ).value=  
+  note ? note.id : '';  
+  
+ document.getElementById(  
+  'noteTitle'  
+ ).value=  
+  note ? note.title : '';  
+  
+ document.getElementById(  
+  'noteCategory'  
+ ).value=  
+  note ? note.category : '';  
+  
+ document.getElementById(  
+  'noteText'  
+ ).value=  
+  note ? note.text : '';  
+  
+ document.getElementById(  
+  'noteType'  
+ ).value=  
+  note ? note.type : 'note';  
+  
+ document.getElementById(  
+  'notePinned'  
+ ).checked=  
+  note ? !!note.pinned : false;  
+  
+ document.getElementById(  
+  'noteModalTitle'  
+ ).textContent=  
+  note ? '✏️ Edit Note' : '📚 New Note';  
+  
+ openModal('noteModal');  
+}  
+  
+function saveNote(){  
+  
+ const title=  
+  document.getElementById('noteTitle')  
+   .value.trim();  
+  
+ const category=  
+  document.getElementById('noteCategory')  
+   .value.trim();  
+  
+ const text=  
+  document.getElementById('noteText')  
+   .value.trim();  
+  
+ const type=  
+  document.getElementById('noteType')  
+   .value;  
+  
+ const pinned=  
+  document.getElementById('notePinned')  
+   .checked;  
+  
+ if(!title && !text){  
+  
+  toast('Please write a title or note.');  
+  
+  return;  
+ }  
+  
+ const editId=  
+  document.getElementById('editingNoteId')  
+   .value;  
+  
+ if(editId){  
+  
+  const note=  
+   notes.find(  
+    n=>String(n.id)===String(editId)  
+   );  
+  
+  if(note){  
+  
+   note.title=title || 'Untitled Note';  
+   note.category=category || 'General';  
+   note.text=text;  
+   note.type=type;  
+   note.pinned=pinned;  
+   note.updatedAt=Date.now();  
+  
+  }  
+  
+  toast('Note updated.');  
+  
+ }else{  
+  
+  notes.unshift({  
+  
+   id:Date.now(),  
+  
+   title:title || 'Untitled Note',  
+  
+   category:category || 'General',  
+  
+   text,  
+  
+   type,  
+  
+   pinned,  
+  
+   createdAt:Date.now(),  
+  
+   updatedAt:Date.now()  
+  
+  });  
+  
+  toast('Note saved.');  
+ }  
+  
+ save(STORAGE.notes,notes);  
+  
+ closeModal('noteModal');  
+  
+ renderNotes();  
+  
+ updateStats();  
+}  
+  
+function deleteNote(id){  
+  
+ if(!confirm('Delete this note?')) return;  
+  
+ notes=  
+  notes.filter(  
+   n=>n.id!==id  
+  );  
+  
+ save(STORAGE.notes,notes);  
+  
+ renderNotes();  
+  
+ updateStats();  
+  
+ toast('Note deleted.');  
+}  
+  
+function togglePinNote(id){  
+  
+ const note=  
+  notes.find(n=>n.id===id);  
+  
+ if(!note) return;  
+  
+ note.pinned=!note.pinned;  
+  
+ save(STORAGE.notes,notes);  
+  
+ renderNotes();  
+}  
+  
+function renderNotes(){  
+  
+ const box=  
+  document.getElementById('notesList');  
+  
+ const search=  
+  (  
+   document.getElementById('noteSearch')?.value  
+   || ''  
+  ).toLowerCase();  
+  
+ let list=  
+  notes.filter(n=>  
+   (  
+    n.title+' '+  
+    n.category+' '+  
+    n.text  
+   ).toLowerCase().includes(search)  
+  );  
+  
+ list.sort(  
+  (a,b)=>  
+   Number(b.pinned)-Number(a.pinned) ||  
+   b.updatedAt-a.updatedAt  
+ );  
+  
+ if(!list.length){  
+  
+  box.innerHTML=  
+   '<div class="card empty">No notes found.</div>';  
+  
+  return;  
+ }  
+  
+ box.innerHTML=  
+  list.map(note=>`  
+  
+   <div class="card">  
+  
+    <div class="list-item">  
+  
+     <div style="flex:1">  
+  
+      <div>  
+       ${note.pinned?  
+        '<span class="badge">📌 Pinned</span>':''}  
+  
+       <span class="badge">  
+        ${escapeHTML(note.category)}  
+       </span>  
+  
+       <span class="badge">  
+        ${escapeHTML(note.type)}  
+       </span>  
+      </div>  
+  
+      <h3>  
+       ${escapeHTML(note.title)}  
+      </h3>  
+  
+      <div class="note-preview">  
+       ${escapeHTML(note.text)}  
+      </div>  
+  
+      <p class="muted">  
+       Updated:  
+       ${new Date(note.updatedAt)  
+         .toLocaleString()}  
+      </p>  
+  
+     </div>  
+  
+     <div>  
+  
+      <button class="edit"  
+       onclick="togglePinNote(${note.id})">  
+       📌  
+      </button>  
+  
+      <button class="edit"  
+       onclick='editNoteById(${note.id})'>  
+       ✏️  
+      </button>  
+  
+      <button class="delete"  
+       onclick="deleteNote(${note.id})">  
+       🗑️  
+      </button>  
+  
+     </div>  
+  
+    </div>  
+  
+   </div>  
+  
+  `).join('');  
+}  
+  
+function editNoteById(id){  
+  
+ const note=  
+  notes.find(n=>n.id===id);  
+  
+ if(note){  
+  openNoteModal(note);  
+ }  
+}  
+  
+  
+/* =========================================================  
+   TASKS  
+========================================================= */  
+  
+function openTaskModal(task=null){  
+  
+ document.getElementById(  
+  'editingTaskId'  
+ ).value=  
+  task ? task.id : '';  
+  
+ document.getElementById(  
+  'taskTitle'  
+ ).value=  
+  task ? task.title : '';  
+  
+ document.getElementById(  
+  'taskDescription'  
+ ).value=  
+  task ? task.description : '';  
+  
+ document.getElementById(  
+  'taskDate'  
+ ).value=  
+  task ? task.date : localDateString();  
+  
+ document.getElementById(  
+  'taskTime'  
+ ).value=  
+  task ? task.time : '';  
+  
+ document.getElementById(  
+  'taskPriority'  
+ ).value=  
+  task ? task.priority : 'medium';  
+  
+ document.getElementById(  
+  'taskCategory'  
+ ).value=  
+  task ? task.category : 'Study';  
+  
+ document.getElementById(  
+  'taskRepeat'  
+ ).value=  
+  task ? task.repeat : 'none';  
+  
+ document.getElementById(  
+  'taskReminder'  
+ ).checked=  
+  task ? !!task.reminder : false;  
+  
+ document.getElementById(  
+  'taskModalTitle'  
+ ).textContent=  
+  task ? '✏️ Edit Task' : '✅ New Task';  
+  
+ openModal('taskModal');  
+}  
+  
+function saveTask(){  
+  
+ const title=  
+  document.getElementById('taskTitle')  
+   .value.trim();  
+  
+ const description=  
+  document.getElementById('taskDescription')  
+   .value.trim();  
+  
+ const date=  
+  document.getElementById('taskDate')  
+   .value;  
+  
+ const time=  
+  document.getElementById('taskTime')  
+   .value;  
+  
+ const priority=  
+  document.getElementById('taskPriority')  
+   .value;  
+  
+ const category=  
+  document.getElementById('taskCategory')  
+   .value;  
+  
+ const repeat=  
+  document.getElementById('taskRepeat')  
+   .value;  
+  
+ const reminder=  
+  document.getElementById('taskReminder')  
+   .checked;  
+  
+ if(!title){  
+  
+  toast('Enter a task title.');  
+  
+  return;  
+ }  
+  
+ const editId=  
+  document.getElementById('editingTaskId')  
+   .value;  
+  
+ if(editId){  
+  
+  const task=  
+   tasks.find(  
+    t=>String(t.id)===String(editId)  
+   );  
+  
+  if(task){  
+  
+   task.title=title;  
+   task.description=description;  
+   task.date=date;  
+   task.time=time;  
+   task.priority=priority;  
+   task.category=category;  
+   task.repeat=repeat;  
+   task.reminder=reminder;  
+  
+  }  
+  
+  toast('Task updated.');  
+  
+ }else{  
+  
+  const task={  
+   id:Date.now(),  
+   title,  
+   description,  
+   date,  
+   time,  
+   priority,  
+   category,  
+   repeat,  
+   reminder,  
+   done:false,  
+   createdAt:Date.now()  
+  };  
+  
+  tasks.unshift(task);  
+  
+  if(reminder && date && time){  
+  
+   scheduleTaskReminder(task);  
+  }  
+  
+  toast('Task saved.');  
+  
+ }  
+  
+ save(STORAGE.tasks,tasks);  
+  
+ closeModal('taskModal');  
+  
+ renderTasks();  
+  
+ updateStats();  
+}  
+  
+function toggleTask(id){  
+  
+ const task=  
+  tasks.find(t=>t.id===id);  
+  
+ if(!task) return;  
+  
+ task.done=!task.done;  
+  
+ save(STORAGE.tasks,tasks);  
+  
+ renderTasks();  
+  
+ updateStats();  
+}  
+  
+function deleteTask(id){  
+  
+ if(!confirm('Delete this task?')) return;  
+  
+ tasks=  
+  tasks.filter(t=>t.id!==id);  
+  
+ save(STORAGE.tasks,tasks);  
+  
+ renderTasks();  
+  
+ updateStats();  
+  
+ toast('Task deleted.');  
+}  
+  
+function editTask(id){  
+  
+ const task=  
+  tasks.find(t=>t.id===id);  
+  
+ if(task){  
+  openTaskModal(task);  
+ }  
+}  
+  
+function renderTasks(){  
+  
+ const box=  
+  document.getElementById('taskList');  
+  
+ const search=  
+  (  
+   document.getElementById('taskSearch')?.value  
+   || ''  
+  ).toLowerCase();  
+  
+ const filter=  
+  document.getElementById('taskFilter')?.value  
+  || 'all';  
+  
+ const priority=  
+  document.getElementById('priorityFilter')?.value  
+  || 'all';  
+  
+ let list=  
+  tasks.filter(t=>{  
+  
+   const matchSearch=  
+    (  
+     t.title+' '+  
+     t.description+' '+  
+     t.category  
+    ).toLowerCase()  
+    .includes(search);  
+  
+   const matchStatus=  
+    filter==='all' ||  
+    (filter==='pending'&&!t.done) ||  
+    (filter==='completed'&&t.done);  
+  
+   const matchPriority=  
+    priority==='all' ||  
+    t.priority===priority;  
+  
+   return matchSearch &&  
+          matchStatus &&  
+          matchPriority;  
+  });  
+  
+ list.sort((a,b)=>{  
+  
+  if(a.done!==b.done){  
+   return Number(a.done)-Number(b.done);  
+  }  
+  
+  return (  
+   (a.date||'9999')+  
+   (a.time||'99:99')  
+  ).localeCompare(  
+   (b.date||'9999')+  
+   (b.time||'99:99')  
+  );  
+ });  
+  
+ if(!list.length){  
+  
+  box.innerHTML=  
+   '<div class="card empty">No tasks found.</div>';  
+  
+  return;  
+ }  
+  
+ box.innerHTML=  
+  list.map(task=>`  
+  
+   <div class="card">  
+  
+    <div class="list-item">  
+  
+     <div style="flex:1">  
+  
+      <label style="display:flex;  
+                    align-items:flex-start;  
+                    gap:9px;  
+                    color:var(--text)">  
+  
+       <input  
+        type="checkbox"  
+        style="width:auto;margin-top:3px"  
+        ${task.done?'checked':''}  
+        onchange="toggleTask(${task.id})">  
+  
+       <span class="${task.done?'done':''}">  
+  
+        <b>  
+         ${escapeHTML(task.title)}  
+        </b>  
+  
+        <div class="muted"  
+             style="margin-top:5px">  
+  
+         ${task.description?  
+          escapeHTML(task.description):''}  
+  
+        </div>  
+  
+       </span>  
+  
+      </label>  
+  
+      <div style="margin-top:8px">  
+  
+       ${task.date?  
+        `<span class="badge">  
+          📅 ${escapeHTML(task.date)}  
+         </span>`:''}  
+  
+       ${task.time?  
+        `<span class="badge">  
+          ⏰ ${escapeHTML(task.time)}  
+         </span>`:''}  
+  
+       <span class="badge">  
+        ${escapeHTML(task.category)}  
+       </span>  
+  
+       <span class="badge priority-${task.priority}">  
+        ${escapeHTML(task.priority)}  
+       </span>  
+  
+       ${task.reminder?  
+        '<span class="badge">🔔 Reminder</span>':''}  
+  
+       ${task.repeat!=='none'?  
+        `<span class="badge">  
+         🔁 ${escapeHTML(task.repeat)}  
+        </span>`:''}  
+  
+      </div>  
+  
+     </div>  
+  
+     <div>  
+  
+      <button class="edit"  
+              onclick="editTask(${task.id})">  
+       ✏️  
+      </button>  
+  
+      <button class="delete"  
+              onclick="deleteTask(${task.id})">  
+       🗑️  
+      </button>  
+  
+     </div>  
+  
+    </div>  
+  
+   </div>  
+  
+  `).join('');  
+}  
+  
+  
+/* =========================================================  
+   REMINDER SYSTEM  
+========================================================= */  
+  
+const reminderTimers={};  
+  
+function scheduleAllReminders(){  
+  
+ tasks.forEach(task=>{  
+  
+  if(  
+   !task.done &&  
+   task.reminder &&  
+   task.date &&  
+   task.time  
+  ){  
+  
+   scheduleTaskReminder(task);  
+  }  
+  
+ });  
+}  
+  
+function scheduleTaskReminder(task){  
+  
+ if(reminderTimers[task.id]){  
+  clearTimeout(reminderTimers[task.id]);  
+ }  
+  
+ const target=  
+  new Date(  
+   `${task.date}T${task.time}:00`  
+  ).getTime();  
+  
+ if(!Number.isFinite(target)) return;  
+  
+ const delay=target-Date.now();  
+  
+ if(delay<=0) return;  
+  
+ reminderTimers[task.id]=  
+  setTimeout(()=>{  
+  
+   showReminder(task);  
+  
+   if(task.repeat!=='none'){  
+    createNextRepeat(task);  
+   }  
+  
+  },delay);  
+}  
+  
+function showReminder(task){  
+  
+ toast(  
+  '🔔 Reminder: '+task.title  
+ );  
+  
+ if(  
+  'Notification' in window &&  
+  Notification.permission==='granted'  
+ ){  
+  
+  try{  
+  
+   new Notification(  
+    'StudentMate Reminder',  
+    {  
+     body:task.title,  
+     tag:'task-'+task.id  
+    }  
+   );  
+  
+  }catch(e){}  
+  
+ }  
+}  
+  
+function createNextRepeat(task){  
+  
+ const d=  
+  new Date(`${task.date}T${task.time}:00`);  
+  
+ if(task.repeat==='daily'){  
+  d.setDate(d.getDate()+1);  
+ }  
+  
+ if(task.repeat==='weekly'){  
+  d.setDate(d.getDate()+7);  
+ }  
+  
+ if(task.repeat==='monthly'){  
+  d.setMonth(d.getMonth()+1);  
+ }  
+  
+ task.date=  
+  d.getFullYear()+'-'+  
+  String(d.getMonth()+1).padStart(2,'0')+'-'+  
+  String(d.getDate()).padStart(2,'0');  
+  
+ save(STORAGE.tasks,tasks);  
+  
+ scheduleTaskReminder(task);  
+  
+ renderTasks();  
+}  
+  
+  
+/* =========================================================  
+   GLOBAL SEARCH  
+========================================================= */  
+  
+function globalSearch(){  
+  
+ const query=  
+  (  
+   document.getElementById('globalSearch')  
+    ?.value || ''  
+  ).trim().toLowerCase();  
+  
+ const box=  
+  document.getElementById('searchResults');  
+  
+ if(!query){  
+  
+  box.innerHTML=  
+   '<div class="card empty">Start typing to search.</div>';  
+  
+  return;  
+ }  
+  
+ const foundNotes=  
+  notes.filter(n=>  
+   (  
+    n.title+' '+n.category+' '+n.text  
+   ).toLowerCase().includes(query)  
+  );  
+  
+ const foundTasks=  
+  tasks.filter(t=>  
+   (  
+    t.title+' '+t.description+' '+t.category  
+   ).toLowerCase().includes(query)  
+  );  
+  
+ const foundRoutine=  
+  routine.filter(r=>  
+   (  
+    r.subject+' '+r.teacher+' '+r.room+' '+r.day  
+   ).toLowerCase().includes(query)  
+  );  
+  
+ let html='';  
+  
+ if(foundNotes.length){  
+  
+  html+='<div class="card"><h3>📚 Notes</h3>';  
+  
+  foundNotes.forEach(n=>{  
+  
+   html+=`  
+    <div class="list-item">  
+     <div>  
+      <b>${escapeHTML(n.title)}</b>  
+      <div class="muted">  
+       ${escapeHTML(n.category)}  
+      </div>  
+     </div>  
+    </div>  
+   `;  
+  
+  });  
+  
+  html+='</div>';  
+ }  
+  
+ if(foundTasks.length){  
+  
+  html+='<div class="card"><h3>✅ Tasks</h3>';  
+  
+  foundTasks.forEach(t=>{  
+  
+   html+=`  
+    <div class="list-item">  
+     <div>  
+      <b>${escapeHTML(t.title)}</b>  
+      <div class="muted">  
+       ${escapeHTML(t.date||'No date')}  
+      </div>  
+     </div>  
+    </div>  
+   `;  
+  
+  });  
+  
+  html+='</div>';  
+ }  
+  
+ if(foundRoutine.length){  
+  
+  html+='<div class="card"><h3>📅 Routine</h3>';  
+  
+  foundRoutine.forEach(r=>{  
+  
+   html+=`  
+    <div class="list-item">  
+     <div>  
+      <b>${escapeHTML(r.subject)}</b>  
+      <div class="muted">  
+       ${escapeHTML(r.day)}  
+       • ${escapeHTML(r.time)}  
+      </div>  
+     </div>  
+    </div>  
+   `;  
+  
+  });  
+  
+  html+='</div>';  
+ }  
+  
+ if(!html){  
+  
+  html=  
+   '<div class="card empty">Nothing found.</div>';  
+ }  
+  
+ box.innerHTML=html;  
+}  
+  
+  
+/* =========================================================  
+   CALCULATOR  
+========================================================= */  
+  
+let calcExpression='';  
+let calcMode='basic';  
+  
+function setCalcMode(mode){  
+  
+ calcMode=mode;  
+  
+ const sci=  
+  document.getElementById('scientificKeys');  
+  
+ const basic=  
+  document.getElementById('basicMode');  
+  
+ const scientific=  
+  document.getElementById('scientificMode');  
+  
+ if(mode==='scientific'){  
+  
+  sci.style.display='block';  
+  
+  basic.className='btn secondary';  
+  scientific.className='btn';  
+  
+ }else{  
+  
+  sci.style.display='none';  
+  
+  basic.className='btn';  
+  scientific.className='btn secondary';  
+ }  
+}  
+  
+function calcInput(value){  
+  
+ calcExpression+=value;  
+  
+ updateCalcDisplay();  
+}  
+  
+function calcClear(){  
+  
+ calcExpression='';  
+  
+ updateCalcDisplay();  
+}  
+  
+function calcDelete(){  
+  
+ calcExpression=  
+  calcExpression.slice(0,-1);  
+  
+ updateCalcDisplay();  
+}  
+  
+function updateCalcDisplay(){  
+  
+ document.getElementById(  
+  'calcExpression'  
+ ).textContent=calcExpression;  
+  
+ document.getElementById(  
+  'calcResult'  
+ ).textContent=  
+  calcExpression || '0';  
+}  
+  
+function factorial(n){  
+  
+ n=Number(n);  
+  
+ if(n<0 || !Number.isInteger(n)){  
+  throw new Error();  
+ }  
+  
+ let r=1;  
+  
+ for(let i=2;i<=n;i++){  
+  r*=i;  
+ }  
+  
+ return r;  
+}  
+  
+function safeCalculate(expr){  
+  
+ let e=expr;  
+  
+ e=e.replace(/π/g,'Math.PI');  
+ e=e.replace(/\be\b/g,'Math.E');  
+  
+ e=e.replace(/sqrt\(/g,'Math.sqrt(');  
+ e=e.replace(/sin\(/g,'Math.sin(');  
+ e=e.replace(/cos\(/g,'Math.cos(');  
+ e=e.replace(/tan\(/g,'Math.tan(');  
+ e=e.replace(/log\(/g,'Math.log10(');  
+ e=e.replace(/ln\(/g,'Math.log(');  
+  
+ e=e.replace(/\^/g,'**');  
+  
+ e=e.replace(  
+  /(\d+(?:\.\d+)?)!/g,  
+  'factorial($1)'  
+ );  
+  
+ e=e.replace(  
+  /(\d+(?:\.\d+)?)%/g,  
+  '($1/100)'  
+ );  
+  
+ if(!/^[0-9+\-*/().,%\s_a-zA-Z]*$/.test(e)){  
+  throw new Error();  
+ }  
+  
+ return Function(  
+  'factorial',  
+  '"use strict";return('+e+')'  
+ )(factorial);  
+}  
+  
+function calcEqual(){  
+  
+ if(!calcExpression) return;  
+  
+ try{  
+  
+  const expression=calcExpression;  
+  
+  const result=  
+   safeCalculate(expression);  
+  
+  if(!Number.isFinite(result)){  
+   throw new Error();  
+  }  
+  
+  const formatted=  
+   Number(  
+    result.toPrecision(12)  
+   );  
+  
+  document.getElementById(  
+   'calcExpression'  
+  ).textContent=  
+   expression+' =';  
+  
+  document.getElementById(  
+   'calcResult'  
+  ).textContent=  
+   formatted;  
+  
+  calcHistory.unshift({  
+   id:Date.now(),  
+   expression,  
+   result:formatted  
+  });  
+  
+  calcHistory=  
+   calcHistory.slice(0,30);  
+  
+  save(STORAGE.history,calcHistory);  
+  
+  calcExpression=  
+   String(formatted);  
+  
+  renderCalcHistory();  
+  
+ }catch(e){  
+  
+  document.getElementById(  
+   'calcResult'  
+  ).textContent='Error';  
+ }  
+}  
+  
+function renderCalcHistory(){  
+  
+ const box=  
+  document.getElementById('calcHistory');  
+  
+ if(!calcHistory.length){  
+  
+  box.innerHTML=  
+   '<div class="empty">No history.</div>';  
+  
+  return;  
+ }  
+  
+ box.innerHTML=  
+  calcHistory.map(h=>`  
+  
+   <div class="list-item">  
+  
+    <div>  
+     <div class="muted">  
+      ${escapeHTML(h.expression)}  
+     </div>  
+  
+     <b>  
+      = ${escapeHTML(String(h.result))}  
+     </b>  
+    </div>  
+  
+    <button class="delete"  
+            onclick="deleteCalcHistory(${h.id})">  
+     🗑️  
+    </button>  
+  
+   </div>  
+  
+  `).join('');  
+}  
+  
+function deleteCalcHistory(id){  
+  
+ calcHistory=  
+  calcHistory.filter(h=>h.id!==id);  
+  
+ save(STORAGE.history,calcHistory);  
+  
+ renderCalcHistory();  
+}  
+  
+function clearCalcHistory(){  
+  
+ if(!confirm('Clear calculator history?')) return;  
+  
+ calcHistory=[];  
+  
+ save(STORAGE.history,calcHistory);  
+  
+ renderCalcHistory();  
+}  
+  
+  
+/* Keyboard */  
+  
+document.addEventListener(  
+ 'keydown',  
+ function(e){  
+  
+  if(  
+   !document.getElementById('calculator')  
+    .classList.contains('active')  
+  ) return;  
+  
+  if(  
+   /[0-9+\-*/().%]/.test(e.key)  
+  ){  
+   calcInput(e.key);  
+  }  
+  
+  if(e.key==='Enter'){  
+   calcEqual();  
+  }  
+  
+  if(e.key==='Backspace'){  
+   calcDelete();  
+  }  
+  
+  if(e.key==='Escape'){  
+   calcClear();  
+  }  
+ }  
+);  
+  
+  
+/* =========================================================  
+   TIMER  
+========================================================= */  
+  
+let timerSeconds=25*60;  
+let timerInitial=25*60;  
+let timerInterval=null;  
+  
+let sessions=  
+ Number(  
+  localStorage.getItem(STORAGE.sessions)||0  
+ );  
+  
+document.getElementById(  
+ 'sessionCount'  
+).textContent=sessions;  
+  
+function changeTimerPreset(){  
+  
+ const value=  
+  document.getElementById('timerPreset').value;  
+  
+ const custom=  
+  document.getElementById('customTimerBox');  
+  
+ if(value==='custom'){  
+  
+  custom.style.display='block';  
+  
+  return;  
+  
+ }else{  
+  
+  custom.style.display='none';  
+ }  
+  
+ setTimerMinutes(Number(value));  
+}  
+  
+function applyCustomTimer(){  
+  
+ const minutes=  
+  Number(  
+   document.getElementById('customMinutes').value  
+  );  
+  
+ if(  
+  !Number.isFinite(minutes) ||  
+  minutes<1 ||  
+  minutes>240  
+ ){  
+  
+  toast('Enter 1–240 minutes.');  
+  
+  return;  
+ }  
+  
+ setTimerMinutes(minutes);  
+  
+ toast('Custom timer set.');  
+}  
+  
+function setTimerMinutes(minutes){  
+  
+ pauseTimer();  
+  
+ timerInitial=  
+  Math.round(minutes*60);  
+  
+ timerSeconds=  
+  timerInitial;  
+  
+ updateTimerDisplay();  
+}  
+  
+function startTimer(){  
+  
+ if(timerInterval) return;  
+  
+ timerInterval=  
+  setInterval(()=>{  
+  
+   if(timerSeconds>0){  
+  
+    timerSeconds--;  
+  
+    updateTimerDisplay();  
+  
+   }else{  
+  
+    clearInterval(timerInterval);  
+    timerInterval=null;  
+  
+    sessions++;  
+  
+    localStorage.setItem(  
+     STORAGE.sessions,  
+     sessions  
+    );  
+  
+    document.getElementById(  
+     'sessionCount'  
+    ).textContent=sessions;  
+  
+    showTimerFinished();  
+   }  
+  
+  },1000);  
+}  
+  
+function pauseTimer(){  
+  
+ if(timerInterval){  
+  
+  clearInterval(timerInterval);  
+  
+  timerInterval=null;  
+ }  
+}  
+  
+function resetTimer(){  
+  
+ pauseTimer();  
+  
+ timerSeconds=  
+  timerInitial;  
+  
+ updateTimerDisplay();  
+}  
+  
+function updateTimerDisplay(){  
+  
+ const min=  
+  Math.floor(timerSeconds/60);  
+  
+ const sec=  
+  timerSeconds%60;  
+  
+ document.getElementById(  
+  'timerDisplay'  
+ ).textContent=  
+  String(min).padStart(2,'0')+  
+  ':'+  
+  String(sec).padStart(2,'0');  
+  
+ const progress=  
+  timerInitial>0?  
+  ((timerInitial-timerSeconds)/  
+   timerInitial)*100:  
+  0;  
+  
+ document.getElementById(  
+  'timerProgress'  
+ ).style.width=  
+  progress+'%';  
+}  
+  
+function showTimerFinished(){  
+  
+ toast('🎉 Study session completed!');  
+  
+ if(  
+  'Notification' in window &&  
+  Notification.permission==='granted'  
+ ){  
+  
+  try{  
+   new Notification(  
+    'StudentMate',  
+    {  
+     body:'Your study session is complete!'  
+    }  
+   );  
+  }catch(e){}  
+ }  
+}  
+  
+  
+/* =========================================================  
+   GPA  
+========================================================= */  
+  
+let gpaRows=[];  
+  
+function addGPARow(){  
+  
+ gpaRows.push({  
+  id:Date.now()+Math.random()  
+ });  
+  
+ renderGPARows();  
+}  
+  
+function removeGPARow(id){  
+  
+ gpaRows=  
+  gpaRows.filter(r=>r.id!==id);  
+  
+ renderGPARows();  
+}  
+  
+function renderGPARows(){  
+  
+ const box=  
+  document.getElementById('gpaRows');  
+  
+ if(!gpaRows.length){  
+  
+  box.innerHTML=  
+   '<div class="empty">Add subjects.</div>';  
+  
+  return;  
+ }  
+  
+ box.innerHTML=  
+  gpaRows.map((row,index)=>`  
+  
+   <div class="card">  
+  
+    <b>Subject ${index+1}</b>  
+  
+    <input  
+     class="gpa-name"  
+     data-id="${row.id}"  
+     placeholder="Subject name">  
+  
+    <div class="row">  
+  
+     <input  
+      type="number"  
+      class="gpa-credit"  
+      data-id="${row.id}"  
+      min="0"  
+      step=".01"  
+      placeholder="Credit">  
+  
+     <input  
+      type="number"  
+      class="gpa-point"  
+      data-id="${row.id}"  
+      min="0"  
+      max="4"  
+      step=".01"  
+      placeholder="Grade Point">  
+  
+     <button  
+      class="btn danger"  
+      onclick="removeGPARow(${row.id})">  
+      ×  
+     </button>  
+  
+    </div>  
+  
+   </div>  
+  
+  `).join('');  
+}  
+  
+function calculateGPA(){  
+  
+ const credits=  
+  document.querySelectorAll('.gpa-credit');  
+  
+ const points=  
+  document.querySelectorAll('.gpa-point');  
+  
+ let totalCredit=0;  
+ let weighted=0;  
+  
+ for(let i=0;i<credits.length;i++){  
+  
+  const credit=  
+   Number(credits[i].value);  
+  
+  const point=  
+   Number(points[i].value);  
+  
+  if(  
+   credit>0 &&  
+   point>=0 &&  
+   point<=4  
+  ){  
+  
+   totalCredit+=credit;  
+  
+   weighted+=credit*point;  
+  }  
+ }  
+  
+ const result=  
+  totalCredit?  
+  weighted/totalCredit:  
+  0;  
+  
+ document.getElementById(  
+  'gpaResult'  
+ ).textContent=  
+  result.toFixed(2);  
+}  
+  
+  
+/* =========================================================  
+   MARKS  
+========================================================= */  
+  
+function calculateMarks(){  
+  
+ const total=  
+  Number(  
+   document.getElementById('totalMarks').value  
+  );  
+  
+ const obtained=  
+  Number(  
+   document.getElementById('obtainedMarks').value  
+  );  
+  
+ if(  
+  total<=0 ||  
+  obtained<0 ||  
+  obtained>total  
+ ){  
+  
+  toast('Enter valid marks.');  
+  
+  return;  
+ }  
+  
+ const percentage=  
+  obtained/total*100;  
+  
+ document.getElementById(  
+  'percentageResult'  
+ ).textContent=  
+  percentage.toFixed(2)+'%';  
+  
+ let grade='';  
+  
+ if(percentage>=80) grade='Excellent';  
+ else if(percentage>=70) grade='Very Good';  
+ else if(percentage>=60) grade='Good';  
+ else if(percentage>=50) grade='Satisfactory';  
+ else if(percentage>=40) grade='Pass';  
+ else grade='Needs Improvement';  
+  
+ document.getElementById(  
+  'marksGrade'  
+ ).textContent=  
+  grade;  
+}  
+  
+  
+/* =========================================================  
+   ROUTINE  
+========================================================= */  
+  
+function addRoutine(){  
+  
+ const day=  
+  document.getElementById('routineDay').value;  
+  
+ const time=  
+  document.getElementById('routineTime').value;  
+  
+ const subject=  
+  document.getElementById('routineSubject')  
+   .value.trim();  
+  
+ const teacher=  
+  document.getElementById('routineTeacher')  
+   .value.trim();  
+  
+ const room=  
+  document.getElementById('routineRoom')  
+   .value.trim();  
+  
+ if(!time || !subject){  
+  
+  toast('Enter subject and time.');  
+  
+  return;  
+ }  
+  
+ routine.push({  
+  
+  id:Date.now(),  
+  
+  day,  
+  time,  
+  subject,  
+  teacher,  
+  room  
+ });  
+  
+ save(STORAGE.routine,routine);  
+  
+ document.getElementById(  
+  'routineSubject'  
+ ).value='';  
+  
+ document.getElementById(  
+  'routineTeacher'  
+ ).value='';  
+  
+ document.getElementById(  
+  'routineRoom'  
+ ).value='';  
+  
+ renderRoutine();  
+  
+ updateStats();  
+  
+ toast('Class added.');  
+}  
+  
+function deleteRoutine(id){  
+  
+ if(!confirm('Delete this class?')) return;  
+  
+ routine=  
+  routine.filter(r=>r.id!==id);  
+  
+ save(STORAGE.routine,routine);  
+  
+ renderRoutine();  
+  
+ updateStats();  
+}  
+  
+function renderRoutine(){  
+  
+ const box=  
+  document.getElementById('routineList');  
+  
+ const days=[  
+  'Saturday',  
+  'Sunday',  
+  'Monday',  
+  'Tuesday',  
+  'Wednesday',  
+  'Thursday',  
+  'Friday'  
+ ];  
+  
+ let html='';  
+  
+ days.forEach(day=>{  
+  
+  const classes=  
+   routine  
+    .filter(r=>r.day===day)  
+    .sort((a,b)=>  
+     a.time.localeCompare(b.time)  
+    );  
+  
+  if(!classes.length) return;  
+  
+  html+=`  
+   <div class="card">  
+  
+    <h3>📅 ${day}</h3>  
+  `;  
+  
+  classes.forEach(item=>{  
+  
+   html+=`  
+  
+    <div class="list-item">  
+  
+     <div>  
+  
+      <b>  
+       ${escapeHTML(item.subject)}  
+      </b>  
+  
+      <div class="muted">  
+       ⏰ ${escapeHTML(item.time)}  
+      </div>  
+  
+      ${item.teacher?  
+       `<div class="muted">  
+        👨‍🏫 ${escapeHTML(item.teacher)}  
+        </div>`:''}  
+  
+      ${item.room?  
+       `<div class="muted">  
+        🚪 ${escapeHTML(item.room)}  
+        </div>`:''}  
+  
+     </div>  
+  
+     <button class="delete"  
+      onclick="deleteRoutine(${item.id})">  
+      🗑️  
+     </button>  
+  
+    </div>  
+   `;  
+  });  
+  
+  html+='</div>';  
+ });  
+  
+ box.innerHTML=  
+  html ||  
+  '<div class="card empty">No classes added.</div>';  
+}  
+  
+  
+/* =========================================================  
+   PERMISSIONS  
+========================================================= */  
+  
+async function requestNotification(){  
+  
+ if(!('Notification' in window)){  
+  
+  toast(  
+   'Notifications are not supported here.'  
+  );  
+  
+  return;  
+ }  
+  
+ try{  
+  
+  const permission=  
+   await Notification.requestPermission();  
+  
+  if(permission==='granted'){  
+  
+   toast('🔔 Notification permission granted.');  
+  
+  }else if(permission==='denied'){  
+  
+   toast(  
+    'Notification permission was denied.'  
+   );  
+  
+  }else{  
+  
+   toast(  
+    'Notification permission not granted.'  
+   );  
+  }  
+  
+ }catch(e){  
+  
+  toast(  
+   'Notification permission unavailable.'  
+  );  
+ }  
+  
+ updatePermissionStatus();  
+}  
+  
+function requestLocation(){  
+  
+ if(!navigator.geolocation){  
+  
+  toast('Location is not supported.');  
+  
+  return;  
+ }  
+  
+ navigator.geolocation.getCurrentPosition(  
+  
+  ()=>{  
+   toast('📍 Location permission granted.');  
+   updatePermissionStatus();  
+  },  
+  
+  ()=>{  
+   toast(  
+    'Location permission was not granted.'  
+   );  
+   updatePermissionStatus();  
+  }  
+  
+ );  
+}  
+  
+async function requestCamera(){  
+  
+ if(  
+  !navigator.mediaDevices ||  
+  !navigator.mediaDevices.getUserMedia  
+ ){  
+  
+  toast('Camera access is not supported here.');  
+  
+  return;  
+ }  
+  
+ try{  
+  
+  const stream=  
+   await navigator.mediaDevices  
+    .getUserMedia({  
+     video:true  
+    });  
+  
+  stream.getTracks().forEach(  
+   track=>track.stop()  
+  );  
+  
+  toast('📷 Camera permission granted.');  
+  
+ }catch(e){  
+  
+  toast(  
+   'Camera permission was not granted.'  
+  );  
+ }  
+  
+ updatePermissionStatus();  
+}  
+  
+async function requestMicrophone(){  
+  
+ if(  
+  !navigator.mediaDevices ||  
+  !navigator.mediaDevices.getUserMedia  
+ ){  
+  
+  toast(  
+   'Microphone access is not supported here.'  
+  );  
+  
+  return;  
+ }  
+  
+ try{  
+  
+  const stream=  
+   await navigator.mediaDevices  
+    .getUserMedia({  
+     audio:true  
+    });  
+  
+  stream.getTracks().forEach(  
+   track=>track.stop()  
+  );  
+  
+  toast(  
+   '🎙️ Microphone permission granted.'  
+  );  
+  
+ }catch(e){  
+  
+  toast(  
+   'Microphone permission was not granted.'  
+  );  
+ }  
+  
+ updatePermissionStatus();  
+}  
+  
+async function updatePermissionStatus(){  
+  
+ const box=  
+  document.getElementById('permissionStatus');  
+  
+ if(!box) return;  
+  
+ let notification='Unknown';  
+  
+ if('Notification' in window){  
+  notification=Notification.permission;  
+ }else{  
+  notification='Not supported';  
+ }  
+  
+ let camera='Unavailable';  
+ let microphone='Unavailable';  
+  
+ if(  
+  navigator.permissions &&  
+  navigator.permissions.query  
+ ){  
+  
+  try{  
+  
+   const cam=  
+    await navigator.permissions.query({  
+     name:'camera'  
+    });  
+  
+   camera=cam.state;  
+  
+  }catch(e){}  
+  
+  try{  
+  
+   const mic=  
+    await navigator.permissions.query({  
+     name:'microphone'  
+    });  
+  
+   microphone=mic.state;  
+  
+  }catch(e){}  
+ }  
+  
+ box.innerHTML=`  
+  
+  🔔 Notifications:  
+  <b>${escapeHTML(notification)}</b>  
+  <br><br>  
+  
+  📷 Camera:  
+  <b>${escapeHTML(camera)}</b>  
+  <br><br>  
+  
+  🎙️ Microphone:  
+  <b>${escapeHTML(microphone)}</b>  
+  
+ `;  
+  
+}  
+  
+  
+/* =========================================================  
+   THEME  
+========================================================= */  
+  
+function setTheme(theme){  
+  
+ document.body.classList.toggle(  
+  'dark',  
+  theme==='dark'  
+ );  
+  
+ localStorage.setItem(  
+  STORAGE.theme,  
+  theme  
+ );  
+}  
+  
+function setColor(color){  
+  
+ document.documentElement  
+  .style.setProperty(  
+   '--primary',  
+   color  
+  );  
+  
+ localStorage.setItem(  
+  STORAGE.color,  
+  color  
+ );  
+}  
+  
+  
+/* =========================================================  
+   DATA CLEAR  
+========================================================= */  
+  
+function clearAllData(){  
+  
+ const ok=  
+  confirm(  
+   'This will delete Notes, Tasks, Routine and Calculator History. Continue?'  
+  );  
+  
+ if(!ok) return;  
+  
+ localStorage.removeItem(STORAGE.notes);  
+ localStorage.removeItem(STORAGE.tasks);  
+ localStorage.removeItem(STORAGE.routine);  
+ localStorage.removeItem(STORAGE.history);  
+  
+ notes=[];  
+ tasks=[];  
+ routine=[];  
+ calcHistory=[];  
+  
+ renderNotes();  
+ renderTasks();  
+ renderRoutine();  
+ renderCalcHistory();  
+ updateStats();  
+  
+ toast('All app data cleared.');  
+}  
+  
+  
+/* =========================================================  
+   STATS  
+========================================================= */  
+  
+function updateStats(){  
+  
+ const pending=  
+  tasks.filter(t=>!t.done).length;  
+  
+ document.getElementById(  
+  'homeTasks'  
+ ).textContent=pending;  
+  
+ document.getElementById(  
+  'homeNotes'  
+ ).textContent=notes.length;  
+  
+ document.getElementById(  
+  'homeClasses'  
+ ).textContent=routine.length;  
+}  
+  
+  
+/* =========================================================  
+   HTML ESCAPE  
+========================================================= */  
+  
+function escapeHTML(value){  
+  
+ return String(value??'')  
+  .replaceAll('&','&amp;')  
+  .replaceAll('<','&lt;')  
+  .replaceAll('>','&gt;')  
+  .replaceAll('"','&quot;')  
+  .replaceAll("'","&#039;");  
+}  
+  
+  
+/* =========================================================  
+   INITIALIZE  
+========================================================= */  
+  
+(function init(){  
+  
+ const theme=  
+  localStorage.getItem(STORAGE.theme);  
+  
+ if(theme){  
+  setTheme(theme);  
+ }  
+  
+ const color=  
+  localStorage.getItem(STORAGE.color);  
+  
+ if(color){  
+  setColor(color);  
+ }  
+  
+ renderNotes();  
+ renderTasks();  
+ renderRoutine();  
+ renderCalcHistory();  
+  
+ setCalcMode('basic');  
+  
+ updateTimerDisplay();  
+  
+ updateStats();  
+  
+ if(!gpaRows.length){  
+  addGPARow();  
+  addGPARow();  
+ }  
+  
+ scheduleAllReminders();  
+  
+ /*  
+  Restore hash only when it is a known page.  
+ */  
+ const hash=  
+  location.hash.replace('#','');  
+  
+ if(  
+  hash &&  
+  document.getElementById(hash)  
+ ){  
+  
+  pageStack=[hash];  
+  
+  openPage(hash,false);  
+ }  
+  
+})();  
+  
+  
+/* =========================================================  
+   GLOBAL SAFETY  
+========================================================= */  
+  
+window.addEventListener(  
+ 'beforeunload',  
+ function(){  
+  save(STORAGE.notes,notes);  
+  save(STORAGE.tasks,tasks);  
+  save(STORAGE.routine,routine);  
+  save(STORAGE.history,calcHistory);  
+ }  
+);  
+  
+</script>  
+  
+</body>  
+</html>
