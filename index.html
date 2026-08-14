@@ -4128,6 +4128,14 @@ window.addEventListener(
 );  
   
 </script>  
-  
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("StudentMate Service Worker registered"))
+      .catch(error => console.error("Service Worker failed:", error));
+  });
+}
+  </script>
 </body>  
 </html>
