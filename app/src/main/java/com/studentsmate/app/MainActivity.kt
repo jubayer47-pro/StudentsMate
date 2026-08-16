@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadInterstitial() {
+
         val adRequest = AdRequest.Builder().build()
 
         InterstitialAd.load(
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             "ca-app-pub-7009578840220882/4118277743",
             adRequest,
             object : InterstitialAdLoadCallback() {
+
                 override fun onAdLoaded(ad: InterstitialAd) {
                     interstitialAd = ad
                 }
@@ -71,5 +73,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    override fun onBackPressed() {
+
+        if (interstitialAd != null) {
+
+            interstitialAd?.show(this)
+
+            interstitialAd = null
+
+            loadInterstitial()
+
+        } else {
+
+            super.onBackPressed()
+
+        }
     }
 }
