@@ -1,94 +1,37 @@
-package com.studentsmate.app
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
 
-import android.os.Bundle
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.InterstitialAdLoadCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
+android {
+    namespace = "com.studentsmate.app"
+    compileSdk = 35
 
-class MainActivity : AppCompatActivity() {
-
-    private var interstitialAd: InterstitialAd? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        MobileAds.initialize(this)
-
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
-
-        val webView = WebView(this)
-        webView.settings.javaScriptEnabled = true
-        webView.settings.domStorageEnabled = true
-        webView.webViewClient = WebViewClient()
-
-        webView.loadUrl("https://jubayer47-pro.github.io/StudentsMate/")
-
-        val adView = AdView(this)
-        adView.setAdSize(AdSize.BANNER)
-        adView.adUnitId = "ca-app-pub-7009578840220882/9849262368"
-
-        layout.addView(
-            webView,
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                0,
-                1f
-            )
-        )
-
-        layout.addView(adView)
-
-        setContentView(layout)
-
-        adView.loadAd(AdRequest.Builder().build())
-
-        loadInterstitial()
+    defaultConfig {
+        applicationId = "com.studentsmate.app"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
     }
 
-    private fun loadInterstitial() {
-
-        val adRequest = AdRequest.Builder().build()
-
-        InterstitialAd.load(
-            this,
-            "ca-app-pub-7009578840220882/4118277743",
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    interstitialAd = ad
-                }
-
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    interstitialAd = null
-                }
-            }
-        )
-    }
-
-    override fun onBackPressed() {
-
-        if (interstitialAd != null) {
-
-            interstitialAd?.show(this)
-
-            interstitialAd = null
-
-            loadInterstitial()
-
-        } else {
-
-            super.onBackPressed()
-
+    buildTypes {
+        release {
+            isMinifyEnabled = false
         }
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.gms:play-services-ads:24.5.0")
 }
