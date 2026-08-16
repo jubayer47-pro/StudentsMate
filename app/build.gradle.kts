@@ -32,5 +32,6 @@ android {
 }
 
 dependencies {
+    implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.gms:play-services-ads:24.5.0")
 }
